@@ -5,7 +5,8 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 interface LoginProps {
     login: boolean;
@@ -13,6 +14,8 @@ interface LoginProps {
 }
 
 export default function LoginPage({login, setLogin}: LoginProps) {
+    const [passVisibilty, setPassVisibilty] = useState(true);
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Bem vindo de volta!</Text>
@@ -21,11 +24,22 @@ export default function LoginPage({login, setLogin}: LoginProps) {
                 placeholder="Insira seu email"
                 placeholderTextColor="#C2CCE1"
             />
-            <TextInput
-                style={styles.input}
-                placeholder="Insira sua senha"
-                placeholderTextColor="#C2CCE1"
-            />
+            <View style={styles.passwordContainer}>
+                <TextInput
+                    style={styles.passwordInput}
+                    placeholder="Insira sua senha"
+                    placeholderTextColor="#C2CCE1"
+                    secureTextEntry={passVisibilty}
+                />
+                <TouchableOpacity
+                    onPress={() => setPassVisibilty(!passVisibilty)}>
+                    {passVisibilty ? (
+                        <Icon name="eye-off" size={32} color="#C2CCE1" />
+                    ) : (
+                        <Icon name="eye" size={32} color="#C2CCE1" />
+                    )}
+                </TouchableOpacity>
+            </View>
             <View style={styles.buttonContainer}>
                 <TouchableOpacity>
                     <Text style={{fontSize: 18, color: '#C2CCE1'}}>
@@ -91,5 +105,21 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         padding: 16,
         borderRadius: 16,
+    },
+    passwordInput: {
+        width: '80%',
+        fontSize: 20,
+        color: '#fff',
+        paddingVertical: 16,
+    },
+    passwordContainer: {
+        width: '100%',
+        backgroundColor: '#41444A',
+        borderRadius: 16,
+        marginBottom: 16,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 16,
     },
 });
