@@ -1,4 +1,5 @@
 import {
+    ActivityIndicator,
     StyleSheet,
     Text,
     TextInput,
@@ -16,7 +17,7 @@ interface RegisterProps {
 }
 
 export default function RegisterPage({login, setLogin}: RegisterProps) {
-    const {signup} = useAuth();
+    const {signup, loading} = useAuth();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -84,9 +85,13 @@ export default function RegisterPage({login, setLogin}: RegisterProps) {
             />
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleSignup}>
-                    <Text style={{fontSize: 20, fontWeight: '700'}}>
-                        Registrar
-                    </Text>
+                    {loading ? (
+                        <ActivityIndicator size={20} color={'#000'} />
+                    ) : (
+                        <Text style={{fontSize: 20, fontWeight: '700'}}>
+                            Registrar
+                        </Text>
+                    )}
                 </TouchableOpacity>
             </View>
             <View

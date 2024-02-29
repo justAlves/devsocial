@@ -1,4 +1,5 @@
 import {
+    ActivityIndicator,
     StyleSheet,
     Text,
     TextInput,
@@ -7,6 +8,8 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {useAuth} from '../../../contexts/auth';
+import ToastManager, {Toast} from 'toastify-react-native';
 
 interface LoginProps {
     login: boolean;
@@ -15,14 +18,30 @@ interface LoginProps {
 
 export default function LoginPage({login, setLogin}: LoginProps) {
     const [passVisibilty, setPassVisibilty] = useState(true);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const {signin, loading} = useAuth();
+
+    async function handleLogin() {
+        if (email.trim() === '' && password.trim() === '') {
+            Toast.error('Preencha todos os campos para continuar.', 'top');
+            return;
+        }
+
+        await signin(email, password);
+    }
 
     return (
         <View style={styles.container}>
+            <ToastManager />
             <Text style={styles.title}>Bem vindo de volta!</Text>
             <TextInput
                 style={styles.input}
                 placeholder="Insira seu email"
                 placeholderTextColor="#C2CCE1"
+                onChangeText={t => setEmail(t)}
+                value={email}
             />
             <View style={styles.passwordContainer}>
                 <TextInput
@@ -30,6 +49,8 @@ export default function LoginPage({login, setLogin}: LoginProps) {
                     placeholder="Insira sua senha"
                     placeholderTextColor="#C2CCE1"
                     secureTextEntry={passVisibilty}
+                    onChangeText={t => setPassword(t)}
+                    value={password}
                 />
                 <TouchableOpacity
                     onPress={() => setPassVisibilty(!passVisibilty)}>
@@ -46,10 +67,14 @@ export default function LoginPage({login, setLogin}: LoginProps) {
                         Esqueceu a Senha?
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
-                    <Text style={{fontSize: 20, fontWeight: '700'}}>
-                        Entrar
-                    </Text>
+                <TouchableOpacity style={styles.button} onPress={handleLogin}>
+                    {loading ? (
+                        <ActivityIndicator size={20} color={'#000'} />
+                    ) : (
+                        <Text style={{fontSize: 20, fontWeight: '700'}}>
+                            Entrar
+                        </Text>
+                    )}
                 </TouchableOpacity>
             </View>
             <View

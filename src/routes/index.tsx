@@ -6,8 +6,7 @@ import AppRoutes from './app.routes';
 import {useAuth} from '../contexts/auth';
 
 export default function Routes() {
-    const {signed} = useAuth();
-    const loading = false;
+    const {signed, loading} = useAuth();
 
     if (loading) {
         return (
@@ -16,9 +15,9 @@ export default function Routes() {
                     flex: 1,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    backgroundColor: '#36393F',
+                    backgroundColor: '#000',
                 }}>
-                <ActivityIndicator size={25} color="#E52246" />
+                <ActivityIndicator size={25} color="#fff" />
             </View>
         );
     }
