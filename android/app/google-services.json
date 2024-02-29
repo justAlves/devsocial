@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1024897953853",
+    "project_id": "devsocial-88493",
+    "storage_bucket": "devsocial-88493.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024897953853:android:4f13377892bcf79358ba54",
+        "android_client_info": {
+          "package_name": "com.devsocial"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy1YQ4yIEw5oTlLOS5Ch3sZN_g1sNHZ8Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
