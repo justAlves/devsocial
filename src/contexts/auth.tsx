@@ -18,6 +18,7 @@ interface AuthProps {
     ) => Promise<void>;
     signin: (email: string, password: string) => Promise<void>;
     loading: boolean;
+    user: IUser | null;
 }
 
 export const AuthContext = createContext({} as AuthProps);
@@ -114,7 +115,8 @@ export default function AuthProvider({children}: AuthProviderProps) {
     }
 
     return (
-        <AuthContext.Provider value={{signed: !!user, signup, signin, loading}}>
+        <AuthContext.Provider
+            value={{signed: !!user, signup, signin, loading, user}}>
             {children}
         </AuthContext.Provider>
     );
